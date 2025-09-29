@@ -8,6 +8,7 @@
                     <th>USER ID</th>
                     <th>이름</th>
                     <th>권한</th>
+                    <th>수정</th>
                 </tr>
             </thead>
             <tbody>
@@ -16,6 +17,7 @@
                     <td>{{ user.userId }}</td>
                     <td>{{ user.userName }}</td>
                     <td>{{ user.auth }}</td>
+                    <td><button @click="modifyUser(user.id)">수정</button></td>
                 </tr>
             </tbody>
         </table>
@@ -43,6 +45,9 @@ export default {
                 console.error('사용자 데이터를 가져오는 중 오류 발생:', error);
                 // 오류 처리 로직 (예: 사용자에게 메시지 표시)
             }
+        },
+        modifyUser(id) {
+            this.$router.push(`/userReg/${id}`);
         }
     }
 }
