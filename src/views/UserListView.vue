@@ -47,7 +47,8 @@ export default {
             }
         },
         modifyUser(id) {
-            this.$router.push(`/userReg/${id}`);
+            this.$router.push(`/userModifyView/${id}`);
+            // this.$router.push({ name: 'UserReg', params: { id: id } });
         }
     }
 }

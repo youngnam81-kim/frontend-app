@@ -6,14 +6,8 @@
             <div class="form-group">
                 <label for="userId">아이디 *</label>
                 <input v-model="user.userId" type="text" id="userId" name="userId" required minlength="3"
-                    autocomplete="new-id" maxlength="20" />
+                    autocomplete="new-id" maxlength="20" disabled />
                 <small v-if="errors.userId" class="error-text">{{ errors.userId }}</small>
-            </div>
-
-            <div class="form-group">
-                <label for="email">이메일 *</label>
-                <input v-model="user.email" type="email" id="email" name="email" required autocomplete="new-email" />
-                <small v-if="errors.email" class="error-text">{{ errors.email }}</small>
             </div>
 
             <div class="form-group">
@@ -43,6 +37,12 @@
             </div>
 
             <div class="form-group">
+                <label for="email">이메일 *</label>
+                <input v-model="user.email" type="email" id="email" name="email" required autocomplete="new-email" />
+                <small v-if="errors.email" class="error-text">{{ errors.email }}</small>
+            </div>
+
+            <div class="form-group">
                 <label for="birthDate">생년월일</label>
                 <input v-model="user.birthDate" type="date" id="birthDate" name="birthDate" />
             </div>
@@ -54,7 +54,7 @@
             </div>
 
             <div class="form-actions">
-                <button type="submit" class="btn btn-primary">회원가입</button>
+                <button type="submit" class="btn btn-primary">정보수정</button>
                 <button type="button" class="btn btn-secondary" @click="goToLogin">로그인 페이지로</button>
             </div>
 
@@ -88,11 +88,6 @@ export default {
             message: '',
             messageType: 'info'
         };
-    },
-    computed: {
-        id() {
-            return this.$route.params.id;
-        }
     },
     methods: {
         validateForm() {
@@ -131,7 +126,7 @@ export default {
 
             return isValid;
         },
-        async handleRegister() {
+        async handleModify() {
             if (!this.validateForm()) {
                 return;
             }
@@ -169,14 +164,20 @@ export default {
                 this.messageType = 'error';
             }
         },
-        loadUser(id) {
-            // API 호출 등으로 사용자 정보 로드
-            console.log(`사용자 ${id} 정보를 불러옵니다`);
-        },
+
         updateUser() {
             // 사용자 정보 업데이트 로직
             console.log('사용자 정보 업데이트');
         },
+    },
+    mounted() {
+        const id = this.$route.params.id;
+
+        this.loadUser = async function (id) {
+            // API 호출 등으로 사용자 정보 로드
+            const response = await this.$axios.post(`/api/users/exist/${id}`);
+            console.log(`사용자 ${id} 정보를 불러옵니다`);
+        }
     }
 }
 </script>

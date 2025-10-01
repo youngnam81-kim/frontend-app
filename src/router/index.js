@@ -20,6 +20,12 @@ const router = createRouter({
       component: () => import('../views/UserListView.vue'),
     },
     {
+      path: '/userModifyView/:id',
+      name: 'userModifyView',
+      component: () => import('../views/UserModifyView.vue'),
+      props: true,
+    },
+    {
       path: '/userReg',
       name: 'userReg',
       component: () => import('../views/UserRegView.vue'),
@@ -31,6 +37,7 @@ const router = createRouter({
     },
 
   ],
+
 })
 
 export default router
